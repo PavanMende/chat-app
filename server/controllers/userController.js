@@ -6,7 +6,7 @@ import cloudinary from "../lib/cloudinary.js"
 export const signUp=async(req,res)=>{
     const {fullName,email,password,bio}=req.body;
     try {
-        console.log("just came",fullName,email,password,bio)
+        // console.log("just came",fullName,email,password,bio)
         if(!fullName || !email || !password || !bio){
             return res.json({success:false,message:"missing details"})
         }
@@ -15,12 +15,12 @@ export const signUp=async(req,res)=>{
         if(user){
             return res.json({success:false,message:"account already exists"})
         }
-        console.log("all came")
         const salt=await bcrypt.genSalt(10)
         const hashed=await bcrypt.hash(password,salt)
         const newUser=await UserChat.create({
             fullName,email,password:hashed,bio
         })
+        await newUser.save()
         const token=generateToken(newUser._id)
         res.json({success:true,userData:newUser,token,message:"account created successfully"})
     } catch (error) {

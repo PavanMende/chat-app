@@ -23,7 +23,7 @@ const UserSchema=new mongoose.Schema({
         type:String
     }
 },{timestamps:true})
+const UserChat =mongoose.model("UserChat", UserSchema);
 
-const UserChat=mongoose.model("UserChat",UserSchema);
 
 export default UserChat

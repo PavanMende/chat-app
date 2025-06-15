@@ -6,7 +6,7 @@ import { io } from "../server.js";
 import { userSocketMap } from "../server.js";
 export const getUsersForSideBar=async(req,res)=>{
     try {
-        const {userId}=req.user._id
+        const userId=req.user._id
         const users=await UserChat.find({_id:{$ne:userId}}).select("-password")
         // count no of unseen msgs
         const unseenMessages={}

@@ -69,7 +69,7 @@ export const sendMessage=async(req,res)=>{
             imageUrl=uploadResponse.secure_url
         }
         const newMessage=await Message.create(
-            senderId,receiverId,text,imageUrl
+            {senderId,receiverId,text,imageUrl}
         )
         // emit the new message to receiver's socket
         const receiverSocketId=userSocketMap[receiverId]

@@ -64,12 +64,15 @@ export const sendMessage=async(req,res)=>{
         const receiverId=req.params.id;
         const senderId=req.user._id;
         let imageUrl;
+
         if(image){
             const uploadResponse=await cloudinary.uploader.upload(image)
             imageUrl=uploadResponse.secure_url
         }
+        // console.log(imageUrl);
+        
         const newMessage=await Message.create(
-            {senderId,receiverId,text,imageUrl}
+            {senderId,receiverId,text,image:imageUrl}
         )
         // emit the new message to receiver's socket
         const receiverSocketId=userSocketMap[receiverId]
